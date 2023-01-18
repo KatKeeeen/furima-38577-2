@@ -4,43 +4,55 @@
 
 | Column             | Type   | Options                   |
 | ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
 | email              | string | null: false, unique: true |
 | encrypted_password | string | null: false               |
-| name               | string | null: false               |
-| profile            | string | null: false               |
-| occupation         | text   | null: false               |
-| position           | string | null: false               |
+| family_name        | string | null: false               |
+| first_name         | string | null: false               |
+| family_name_kana   | string | null: false               |
+| first_name_kana    | string | null: false               |
+| birth_day          | date   | null: false               |
 
 ### Association
 
-- has_many :prototypes
-- has_many :comments
+- has_many :products
+- has_one  :destination
 
-## prototypes テーブル
 
-| Column     | Type      | Options                        |
-| ---------- | --------- | ------------------------------ |
-| title      | string    | null: false                    |
-| catch_copy | text      | null: false                    |
-| concept    | text      | null: false                    |
-| user       | reference | null: false, foreign_key: true |
+## destination テーブル
 
-### Association
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| post_code     | string     | null: false                    |
+| prefecture    | integer    | null: false                    |
+| city          | string     | null: false                    |
+| address       | string     | null: false                    |
+| building_name | string     | null: false                    |
+| phone_number  | string     | null: false                    |
+| user_id       | references | null: false, foreign_key: true |
 
-- belongs_to :user
-- has_many : comments
-
-## comments テーブル
-
-| Column    | Type       | Options                        |
-| --------- | ---------- | ------------------------------ |
-| content   | text       | null: false, foreign_key: true |
-| prototype | references | null: false, foreign_key: true |
-| user      | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
-- belongs_to :prototype
+- belongs_to          :user
 
-## messages テーブル
+
+
+## product テーブル
+
+| Column          | Type      | Options                        |
+| --------------- | --------- | ------------------------------ |
+| name            | string    | null: false                    |
+| price           | integer   | null: false                    |
+| description     | text      | null: false                    |
+| category        | integer   | null: false                    |
+| status          | string    | null: false                    |
+| shopping_charge | string    | null: false                    |
+| prefecture      | integer   | null: false                    |
+| shopping_days   | string    | null: false                    |
+| user_id         | reference | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to             :user
+
