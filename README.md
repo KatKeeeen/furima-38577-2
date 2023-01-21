@@ -16,7 +16,7 @@
 ### Association
 
 - has_many  :products
-  has_many  :orders
+- has_many  :orders
 
 
 ## products テーブル
@@ -36,7 +36,7 @@
 ### Association
 
 - belongs_to  :user
-  has_one     :order
+- has_one     :order
 
 
 ## orders テーブル
@@ -50,7 +50,7 @@
 
 - belongs_to  :user
 - belongs_to  :product
-  has_one     :destination
+- has_one     :destination
 
 
 ## destinations テーブル
