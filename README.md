@@ -4,43 +4,67 @@
 
 | Column             | Type   | Options                   |
 | ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
 | email              | string | null: false, unique: true |
 | encrypted_password | string | null: false               |
-| name               | string | null: false               |
-| profile            | string | null: false               |
-| occupation         | text   | null: false               |
-| position           | string | null: false               |
+| family_name        | string | null: false               |
+| first_name         | string | null: false               |
+| family_name_kana   | string | null: false               |
+| first_name_kana    | string | null: false               |
+| birth_day          | date   | null: false               |
 
 ### Association
 
-- has_many :prototypes
-- has_many :comments
+- has_many  :products
+- has_many  :orders
 
-## prototypes テーブル
 
-| Column     | Type      | Options                        |
-| ---------- | --------- | ------------------------------ |
-| title      | string    | null: false                    |
-| catch_copy | text      | null: false                    |
-| concept    | text      | null: false                    |
-| user       | reference | null: false, foreign_key: true |
+## products テーブル
 
-### Association
-
-- belongs_to :user
-- has_many : comments
-
-## comments テーブル
-
-| Column    | Type       | Options                        |
-| --------- | ---------- | ------------------------------ |
-| content   | text       | null: false, foreign_key: true |
-| prototype | references | null: false, foreign_key: true |
-| user      | references | null: false, foreign_key: true |
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| name               | string     | null: false                    |
+| price              | integer    | null: false                    |
+| description        | text       | null: false                    |
+| category_id        | integer    | null: false                    |
+| state_id           | integer    | null: false                    |
+| shopping_charge_id | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
+| delivery_time_id   | integer    | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
-- belongs_to :prototype
+- belongs_to  :user
+- has_one     :order
 
-## messages テーブル
+
+## orders テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| user    | references | null: false, foreign_key: true |
+| product | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to  :user
+- belongs_to  :product
+- has_one     :destination
+
+
+## destinations テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| post_code     | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| address       | string     | null: false                    |
+| building_name | string     |                                |
+| phone_number  | string     | null: false                    |
+| order         | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to  :oder
